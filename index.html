@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#087f8c">
+    <meta name="description" content="Application d'évaluation du confort thermique selon la température et l'humidité.">
+    <title>ThermoConfort | Évaluation thermique</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+<header class="header">
+    <a href="#" class="logo">Thermo<span>Confort</span></a>
+    <div class="header-status">
+        <span class="status-dot"></span>
+        Évaluation du confort thermique
+    </div>
+</header>
+
+<main class="container">
+
+    <section class="intro">
+        <span class="eyebrow">INTELLIGENCE ARTIFICIELLE &amp; LOGIQUE FLOUE</span>
+        <h1>Évaluation du confort thermique</h1>
+        <p>
+            Analysez les conditions thermiques d'un espace à partir
+            de la température et de l'humidité relative.
+        </p>
+    </section>
+
+    <section class="dashboard">
+
+        <!-- COLONNE GAUCHE -->
+        <div class="left-column">
+
+            <section class="card">
+                <div class="card-heading">
+                    <div class="heading-icon">⚙</div>
+                    <div>
+                        <h2>Paramètres de mesure</h2>
+                        <p class="description">
+                            Entrez les valeurs de votre environnement.
+                        </p>
+                    </div>
+                </div>
+
+                <form id="comfort-form">
+
+                    <div class="field">
+                        <div class="field-heading">
+                            <label for="temperature">Température</label>
+                            <span class="unit-label">Degrés Celsius (°C)</span>
+                        </div>
+
+                        <div class="input-wrapper">
+                            <input
+                                type="number"
+                                id="temperature"
+                                min="-10"
+                                max="50"
+                                step="0.5"
+                                value="22.5"
+                                required
+                            >
+                            <span>°C</span>
+                        </div>
+
+                        <input
+                            type="range"
+                            id="temperature-range"
+                            min="-10"
+                            max="50"
+                            step="0.5"
+                            value="22.5"
+                            aria-label="Régler la température"
+                        >
+
+                        <div class="range-labels">
+                            <span>-10 °C</span>
+                            <span>20 °C</span>
+                            <span>50 °C</span>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="field-heading">
+                            <label for="humidity">Humidité relative</label>
+                            <span class="unit-label">Pourcentage (%)</span>
+                        </div>
+
+                        <div class="input-wrapper">
+                            <input
+                                type="number"
+                                id="humidity"
+                                min="0"
+                                max="100"
+                                step="1"
+                                value="50"
+                                required
+                            >
+                            <span>%</span>
+                        </div>
+
+                        <input
+                            type="range"
+                            id="humidity-range"
+                            min="0"
+                            max="100"
+                            step="1"
+                            value="50"
+                            aria-label="Régler l'humidité"
+                        >
+
+                        <div class="range-labels">
+                            <span>0 %</span>
+                            <span>50 %</span>
+                            <span>100 %</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="evaluer">
+                        Évaluer le confort
+                        <span>→</span>
+                    </button>
+
+                    <p class="small-note">
+                        Modifiez les paramètres puis lancez l'évaluation.
+                        Les résultats et les couleurs seront actualisés.
+                    </p>
+                </form>
+            </section>
+
+            <!-- ILLUSTRATION -->
+            <section class="card illustration">
+                <div class="house-scene">
+                    <div class="scene-sun"></div>
+                    <div class="cloud cloud-one"></div>
+                    <div class="cloud cloud-two"></div>
+
+                    <svg class="house-drawing"
+                         viewBox="0 0 320 220"
+                         role="img"
+                         aria-label="Illustration d'une maison dans un environnement confortable">
+
+                        <ellipse cx="160" cy="196" rx="112" ry="12"
+                                 fill="#d2e8d9"/>
+
+                        <path d="M65 105 L160 35 L255 105"
+                              fill="#087f8c"
+                              stroke="#075e68"
+                              stroke-width="5"
+                              stroke-linejoin="round"/>
+
+                        <rect x="82" y="103" width="156" height="85"
+                              rx="3" fill="#ffffff"
+                              stroke="#d6e5e8" stroke-width="2"/>
+
+                        <rect x="103" y="119" width="39" height="35"
+                              rx="3" fill="#d9f1f7"
+                              stroke="#5ba5c7" stroke-width="3"/>
+
+                        <path d="M122 119 V154 M103 136 H142"
+                              stroke="#5ba5c7" stroke-width="2"/>
+
+                        <rect x="176" y="130" width="38" height="58"
+                              rx="3" fill="#e4f0e9"
+                              stroke="#7fb89b" stroke-width="3"/>
+
+                        <circle cx="205" cy="160" r="2.5" fill="#087f8c"/>
+
+                        <path d="M54 190 Q45 163 62 146 Q80 165 70 190"
+                              fill="#5ba779"/>
+
+                        <path d="M258 190 Q248 165 265 146 Q283 165 274 190"
+                              fill="#5ba779"/>
+
+                        <path d="M40 190 H280"
+                              stroke="#8cbaa0" stroke-width="3"
+                              stroke-linecap="round"/>
+                    </svg>
+
+                    <div class="scene-label">
+                        <span></span>
+                        Analyse de l'environnement
+                    </div>
+                </div>
+
+                <div class="house-caption">
+                    <h3>Un environnement confortable</h3>
+                    <p>
+                        La température et l'humidité influencent
+                        le confort thermique.
+                    </p>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- COLONNE DROITE -->
+        <div class="right-column">
+
+            <section class="card result-card moyen" id="result-card">
+
+                <div class="result-heading">
+                    <div>
+                        <h2>Résultat de l'évaluation</h2>
+                        <p class="description">
+                            Indicateur global de confort thermique
+                        </p>
+                    </div>
+
+                    <div class="result-icon" id="result-icon">●</div>
+                </div>
+
+                <div class="score-area">
+
+                    <div class="score-circle" id="score-circle">
+                        <div class="score-content">
+                            <span id="score">75</span>
+                            <small>/100</small>
+                        </div>
+                    </div>
+
+                    <div class="score-text">
+                        <span class="result-caption">Niveau de confort</span>
+                        <h3 id="result-label">Confort moyen</h3>
+                        <p id="result-description">
+                            Le confort peut être amélioré.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="score-track">
+                    <div class="score-progress" id="score-progress"></div>
+                </div>
+
+                <div class="divider"></div>
+
+                <h3 class="section-title">
+                    Analyse par logique floue
+                </h3>
+                <p class="description">
+                    Degrés d'appartenance des différentes variables.
+                </p>
+
+                <!-- TEMPÉRATURE -->
+                <div class="membership-group">
+
+                    <div class="group-heading">
+                        <div class="category-icon temperature-icon"
+                             id="temperature-icon">🌡</div>
+                        <h4>Température</h4>
+                    </div>
+
+                    <div class="membership-item">
+                        <div class="membership-info">
+                            <span>Froide</span>
+                            <strong id="cold-value">0 %</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill cold-fill"
+                                 id="cold-bar"></div>
+                        </div>
+                    </div>
+
+                    <div class="membership-item">
+                        <div class="membership-info">
+                            <span>Modérée</span>
+                            <strong id="moderate-value">100 %</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill moderate-fill"
+                                 id="moderate-bar"></div>
+                        </div>
+                    </div>
+
+                    <div class="membership-item">
+                        <div class="membership-info">
+                            <span>Chaude</span>
+                            <strong id="hot-value">0 %</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill hot-fill"
+                                 id="hot-bar"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HUMIDITÉ -->
+                <div class="membership-group humidity-group">
+
+                    <div class="group-heading">
+                        <div class="category-icon humidity-icon"
+                             id="humidity-icon">💧</div>
+                        <h4>Humidité relative</h4>
+                    </div>
+
+                    <div class="membership-item">
+                        <div class="membership-info">
+                            <span>Faible</span>
+                            <strong id="low-value">0 %</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill low-fill"
+                                 id="low-bar"></div>
+                        </div>
+                    </div>
+
+                    <div class="membership-item">
+                        <div class="membership-info">
+                            <span>Modérée</span>
+                            <strong id="average-value">100 %</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill average-fill"
+                                 id="average-bar"></div>
+                        </div>
+                    </div>
+
+                    <div class="membership-item">
+                        <div class="membership-info">
+                            <span>Élevée</span>
+                            <strong id="high-value">0 %</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill high-fill"
+                                 id="high-bar"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONFORT -->
+                <div class="membership-group comfort-group">
+
+                    <div class="group-heading">
+                        <div class="category-icon comfort-icon"
+                             id="comfort-icon">✓</div>
+                        <h4>Confort thermique</h4>
+                    </div>
+
+                    <div class="membership-item">
+                        <div class="membership-info">
+                            <span>Bon</span>
+                            <strong id="good-value">0 %</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill good-fill"
+                                 id="good-bar"></div>
+                        </div>
+                    </div>
+
+                    <div class="membership-item">
+                        <div class="membership-info">
+                            <span>Moyen</span>
+                            <strong id="medium-value">100 %</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill medium-fill"
+                                 id="medium-bar"></div>
+                        </div>
+                    </div>
+
+                    <div class="membership-item">
+                        <div class="membership-info">
+                            <span>Mauvais</span>
+                            <strong id="bad-value">0 %</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill bad-fill"
+                                 id="bad-bar"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- CONSEILS -->
+            <section class="card advice-card" id="advice-card">
+                <div class="advice-icon" id="advice-icon">💡</div>
+                <div>
+                    <h3 id="advice-title">Conseil personnalisé</h3>
+                    <p id="advice-text">
+                        Maintenez une température et une humidité
+                        adaptées pour favoriser le confort.
+                    </p>
+                </div>
+            </section>
+
+        </div>
+    </section>
+
+    <footer>
+        <p>
+            <span>ThermoConfort</span> · Évaluation du confort thermique
+        </p>
+        <p>Modèle pédagogique basé sur la logique floue.</p>
+    </footer>
+
+</main>
+
+</body>
+</html>
